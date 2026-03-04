@@ -1,0 +1,162 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Dual-Branch Speech Enhancement Network via Mel-Spectrogram Generation and Phase Prediction</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/user.css">
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], }, chtml: { scale: 0.8 }};
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js'></script>    
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Dual-Branch Speech Enhancement Network via Mel-Spectrogram Generation and Phase Prediction <small class="color_fade">Online Supplement</small>
+            </h1>
+        </header>
+
+        <h4> Authors </h4>
+        <div style="font-size: medium;"> Anonymous Authors (Hidden for Double-Blind Review) </div>
+        <h4> Abstract </h4>
+        <div style="font-size: medium;"> 
+            Mel-domain generative speech enhancement offers significant advantages for improving speech quality. However, it typically lacks explicit phase modeling, often leading to severe time-domain distortion, such as consistently negative SI-SNR. To overcome this limitation, we propose MP-FlowSE, a novel dual-branch architecture integrating explicit phase prediction into Mel-domain generation. Specifically, a generative branch synthesizes Mel-spectrograms for vocoder-guided magnitude recovery, while a parallel branch explicitly predicts the phase spectrogram. Furthermore, the entire pipeline is jointly optimized with conditional flow matching, anti-wrapping phase, waveform reconstruction, and metric-aware losses. Experiments on popular benchmarks demonstrate that the proposed method yields substantial improvements in both perceptual (e.g., PESQ, DNSMOS) and signal-level (SI-SNR) metrics, while significantly reducing model parameters and computational complexity (1 NFE and an RTF of 0.092).    </br>
+        <h4> Datasets </h4>
+        <div style="font-size: medium;">
+            <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791"> VoiceBank+DEMAND </a> dataset is used for demo. </li>
+        </div>
+        <h4> Compared methods </h4>
+        <div style="font-size: medium;">
+            <li><a href=" https://github.com/sp-uhh/sgmse">SGMSE+: Speech Enhancement and Dereverberation With Diffusion-Based Generative Models</a></li>
+            <li><a href=" https://github.com/sp-uhh/storm">StoRM: A Diffusion-Based Stochastic Regeneration Model for Speech Enhancement and Dereverberation</a></li>
+            <li><a href=" https://github.com/seongq/flowmse">FlowMSE: Flow matching based speech enhancement</a></li>
+            <li><a href=" https://github.com/seongq/cascadingtwoflowmatching">CTFSE: Speech enhancement based on cascaded two flows</a></li>
+            <li><a href=" https://github.com/Honee-W/FlowSE">FlowSE-DiT: Efficient and High-Quality Speech Enhancement via Flow Matching</a></li>
+        </div>
+    </br>
+        <h4> Configurations of Evaluated Models </h4>
+        <table class="table table-hover" style="width: 80%; margin-bottom: 30px;">
+            <thead>
+                <tr style="border-bottom: 2px solid #000;">
+                    <th>Method</th>
+                    <th>Loss Type</th>
+                    <th>NFE</th>
+                    <th>Para.(M)</th>
+                    <th>RTF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td>SGMSE+</td> <td>DSM</td> <td>60</td> <td>65.00</td> <td>1.680</td> </tr>
+                <tr> <td>StoRM</td> <td>MSE+DSM</td> <td>101</td> <td>27.80</td> <td>1.973</td> </tr>
+                <tr> <td>FlowMSE</td> <td>CFM</td> <td>5</td> <td>65.00</td> <td>0.147</td> </tr>
+                <tr> <td>CTFSE</td> <td>CFM</td> <td>5</td> <td>27.80</td> <td>0.094</td> </tr>
+                <tr> <td>FlowSE-DiT<sup>&Dagger;</sup></td> <td>CFM</td> <td>32</td> <td>350.63</td> <td>0.916</td> </tr>
+                <tr style="border-top: 1px solid #000;"> 
+                    <td>FlowSE-UNet</td> <td>CFM</td> <td><strong>1</strong></td> <td><strong>24.60</strong></td> <td><strong>0.077</strong></td> 
+                </tr>
+                <tr> 
+                    <td>MP-FlowSE_v1</td> <td>CFM+Phase+Wav</td> <td><strong>1</strong></td> <td><u>25.90</u></td> <td><u>0.084</td> 
+                </tr>
+                <tr> 
+                    <td>MP-FlowSE_v2</td> <td>CFM+Phase+Metric</td> <td><strong>1</strong></td> <td><u>25.90</u></td> <td>0.092</td> 
+                </tr>
+            </tbody>
+        </table>
+        <h4> Audio Samples </h4>
+        <!-- <hr class="hr_line"> -->
+        <!-- <h3>VoiceBank+DEMAND</h3> -->
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Model\id(noise)</th>
+                    <th>p257_008(cafe)</th>
+                    <th>p257_033(living)</th>
+                    <th>p257_106(bus)</th>
+                    <th>p232_250(office)</th>
+                    <th>p232_409(psquare)</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td> Clean </td>
+                <td><audio controls=""><source src="samples/Clean/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Clean/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> Noisy </td>
+                <td><audio controls=""><source src="samples/Noisy/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/Noisy/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> SGMSE+ </td>
+                <td><audio controls=""><source src="samples/SGMSE+/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/SGMSE+/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/SGMSE+/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/SGMSE+/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/SGMSE+/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> StoRM </td>
+                <td><audio controls=""><source src="samples/StoRM/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/StoRM/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/StoRM/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/StoRM/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/StoRM/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> FlowMSE </td>
+                <td><audio controls=""><source src="samples/FlowMSE/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowMSE/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowMSE/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowMSE/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowMSE/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> CTFSE </td>
+                <td><audio controls=""><source src="samples/CTFSE/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CTFSE/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CTFSE/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CTFSE/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/CTFSE/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> FlowSE-DiT </td>
+                <td><audio controls=""><source src="samples/FlowSE-DiT/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-DiT/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-DiT/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-DiT/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-DiT/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> FlowSE-UNet </td>
+                <td><audio controls=""><source src="samples/FlowSE-UNet/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-UNet/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-UNet/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-UNet/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/FlowSE-UNet/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> MP-FlowSE_v1 </td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v1/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v1/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v1/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v1/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v1/p232_409.wav"></audio></td>
+                </tr>
+                <tr> <td> MP-FlowSE_v2 </td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v2/p257_008.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v2/p257_033.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v2/p257_106.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v2/p232_250.wav"></audio></td>
+                <td><audio controls=""><source src="samples/MP-FlowSE_v2/p232_409.wav"></audio></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div style="font-size: medium;" class="color_fade"> Note: the audio samples of the original NyTT paper are not publicly available.</div> -->
+        <h4>Spectrogram of samples (p257_008)</h4>
+        <img src="img/p257_008.png" class="container">
+    </br>    
+        <div class="row"> &nbsp; </div> <br/>
+
+    </div>
+</body>

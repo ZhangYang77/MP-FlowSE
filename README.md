@@ -1,2 +1,2 @@
-# MP-FlowSE
-Dual-Branch Speech Enhancement Network via Mel-Spectrogram Generation and Phase Prediction
+# Dual-Branch Speech Enhancement Network via Mel-Spectrogram Generation and Phase Prediction
+Online Supplement
