@@ -23,7 +23,7 @@
         <div style="font-size: medium;"> Anonymous Authors (Hidden for Double-Blind Review) </div>
         <h4> Abstract </h4>
         <div style="font-size: medium;"> 
-            Mel-domain generative speech enhancement offers significant advantages for improving speech quality. However, it typically lacks explicit phase modeling, often leading to severe time-domain distortion, such as consistently negative SI-SNR. To overcome this limitation, we propose MP-FlowSE, a novel dual-branch architecture integrating explicit phase prediction into Mel-domain generation. Specifically, a generative branch synthesizes Mel-spectrograms for vocoder-guided magnitude recovery, while a parallel branch explicitly predicts the phase spectrogram. Furthermore, the entire pipeline is jointly optimized with conditional flow matching, anti-wrapping phase, waveform reconstruction, and metric-aware losses. Experiments on popular benchmarks demonstrate that the proposed method yields substantial improvements in both perceptual (e.g., PESQ, DNSMOS) and signal-level (SI-SNR) metrics, while significantly reducing model parameters and computational complexity (1 NFE and an RTF of 0.092).    </br>
+            Flow matching offers efficient generative speech enhancement with reduced inference latency compared to diffusion models. Operating in the Mel-spectrogram domain further compresses representation complexity while capturing human auditory characteristics. However, existing Mel-domain flow matching methods inevitably discard explicit phase information during compression, forcing reliance on neural vocoders for waveform reconstruction. Under noisy conditions, the phase artifacts introduced by vocoders lead to severe time-domain distortion, manifesting as low PESQ and consistently negative SI-SNR values. To overcome this limitation, we propose MP-FlowSE, a dual-branch architecture integrating explicit phase prediction into Mel-spectrogram flow matching. Specifically, a generative branch synthesizes Mel-spectrograms while a parallel branch explicitly predicts the corresponding phase spectra. We jointly optimize the entire pipeline using conditional flow matching, phase, waveform, and metric losses. Experiments on standard benchmarks show that the proposed method achieves a PESQ of 3.27 with SI-SNR elevated from negative values to 15.17 dB, reduces parameters by 13.5 times compared to previous Mel-domain flow matching methods, and achieves lower giga multiply-accumulate operations per second (GMACs) and real-time factor (RTF) than advanced generative speech enhancement models. Audio samples are available at https://anonymous.4open.science/w/MP-FlowSE.    </br>
         <h4> Datasets </h4>
         <div style="font-size: medium;">
             <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791"> VoiceBank+DEMAND </a> dataset is used for demo. </li>
@@ -45,23 +45,22 @@
                     <th>Loss Type</th>
                     <th>NFE</th>
                     <th>Para.(M)</th>
-                    <th>RTF</th>
                 </tr>
             </thead>
             <tbody>
-                <tr> <td>SGMSE+</td> <td>DSM</td> <td>60</td> <td>65.00</td> <td>1.680</td> </tr>
-                <tr> <td>StoRM</td> <td>MSE+DSM</td> <td>101</td> <td>27.80</td> <td>1.973</td> </tr>
-                <tr> <td>FlowMSE</td> <td>CFM</td> <td>5</td> <td>65.00</td> <td>0.147</td> </tr>
-                <tr> <td>CTFSE</td> <td>CFM</td> <td>5</td> <td>27.80</td> <td>0.094</td> </tr>
-                <tr> <td>FlowSE-DiT<sup>&Dagger;</sup></td> <td>CFM</td> <td>32</td> <td>350.63</td> <td>0.916</td> </tr>
+                <tr> <td>SGMSE+</td> <td>DSM</td> <td>60</td> <td>65.00</td> </tr>
+                <tr> <td>StoRM</td> <td>MSE+DSM</td> <td>101</td> <td>27.80</td> </tr>
+                <tr> <td>FlowMSE</td> <td>CFM</td> <td>5</td> <td>65.00</td> </tr>
+                <tr> <td>CTFSE</td> <td>CFM</td> <td>6</td> <td>27.80</td> </tr>
+                <tr> <td>FlowSE-DiT</td> <td>CFM</td> <td>65</td> <td>350.63</td> </tr>
                 <tr style="border-top: 1px solid #000;"> 
-                    <td>FlowSE-UNet</td> <td>CFM</td> <td><strong>1</strong></td> <td><strong>24.60</strong></td> <td><strong>0.077</strong></td> 
+                    <td>FlowSE-UNet</td> <td>CFM</td> <td><strong>2</strong></td> <td><strong>24.60</strong></td> 
                 </tr>
                 <tr> 
-                    <td>MP-FlowSE_v1</td> <td>CFM+Phase+Wav</td> <td><strong>1</strong></td> <td><u>25.90</u></td> <td><u>0.084</td> 
+                    <td>MP-FlowSE_v1</td> <td>CFM+Phase+Wav</td> <td><u>3<u></td> <td><u>25.90</u></td> 
                 </tr>
                 <tr> 
-                    <td>MP-FlowSE_v2</td> <td>CFM+Phase+Metric</td> <td><strong>1</strong></td> <td><u>25.90</u></td> <td>0.092</td> 
+                    <td>MP-FlowSE_v2</td> <td>CFM+Phase+Metric</td> <td><u>3<u></td> <td><u>25.90</u></td> 
                 </tr>
             </tbody>
         </table>
