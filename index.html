@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,23 +21,28 @@
         </header>
 
         <h4> Authors </h4>
-        <div style="font-size: medium;"> Anonymous Authors (Hidden for Double-Blind Review) </div>
+        <div style="font-size: medium;">Yang Zhang, Wenbin Jiang, Jingrui Qian, Kaiying Wu, Wen Zhang</div>
         <h4> Abstract </h4>
         <div style="font-size: medium;"> 
-            Flow matching offers efficient generative speech enhancement with reduced inference latency compared to diffusion models. Operating in the Mel-spectrogram domain further compresses representation complexity while capturing human auditory characteristics. However, existing Mel-domain flow matching methods inevitably discard explicit phase information during compression, forcing reliance on neural vocoders for waveform reconstruction. Under noisy conditions, the phase artifacts introduced by vocoders lead to severe time-domain distortion, manifesting as low PESQ and consistently negative SI-SNR values. To overcome this limitation, we propose MP-FlowSE, a dual-branch architecture integrating explicit phase prediction into Mel-spectrogram flow matching. Specifically, a generative branch synthesizes Mel-spectrograms while a parallel branch explicitly predicts the corresponding phase spectra. We jointly optimize the entire pipeline using conditional flow matching, phase, waveform, and metric losses. Experiments on standard benchmarks show that the proposed method achieves a PESQ of 3.27 with SI-SNR elevated from negative values to 15.17 dB, reduces parameters by 13.5 times compared to the previous Mel-domain speech enhancement method, and achieves lower giga multiply-accumulate operations per second (GMACs) and real-time factor (RTF) than advanced generative speech enhancement models. Audio samples are available at https://anonymous.4open.science/w/MP-FlowSE.    </br>
+            Flow matching offers efficient generative speech enhancement with reduced inference latency compared to diffusion models. Operating in the Mel-spectrogram domain further compresses representation complexity while capturing human auditory characteristics. However, existing Mel-domain flow matching methods inevitably discard explicit phase information during compression, forcing reliance on neural vocoders for waveform reconstruction. Under noisy conditions, the phase artifacts introduced by vocoders lead to severe time-domain distortion, manifesting as low PESQ and consistently negative SI-SNR values. To overcome this limitation, we propose MP-FlowSE, a dual-branch architecture integrating explicit phase prediction into Mel-spectrogram flow matching. Specifically, a generative branch synthesizes Mel-spectrograms while a parallel branch explicitly predicts the corresponding phase spectra. We jointly optimize the entire pipeline using conditional flow matching, phase, waveform, and metric losses. Experiments on standard benchmarks show that the proposed method achieves a PESQ of 3.27 with SI-SNR elevated from negative values to 15.17 dB, reduces parameters by 13.5 times compared to the previous Mel-domain speech enhancement method, and achieves lower giga multiply-accumulate operations per second (GMACs) and real-time factor (RTF) than advanced generative speech enhancement models. Audio samples are available at https://zhangyang77.github.io/MP-FlowSE.
+        </div>
         <h4> Datasets </h4>
         <div style="font-size: medium;">
-            <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791"> VoiceBank+DEMAND </a> dataset is used for demo. </li>
+            <ul>
+                <li>The <a href="https://datashare.ed.ac.uk/handle/10283/2791">VoiceBank+DEMAND</a> dataset is used for the audio samples.</li>
+            </ul>
         </div>
         <h4> Compared methods </h4>
         <div style="font-size: medium;">
-            <li><a href=" https://github.com/sp-uhh/sgmse">SGMSE+: Speech Enhancement and Dereverberation With Diffusion-Based Generative Models</a></li>
-            <li><a href=" https://github.com/sp-uhh/storm">StoRM: A Diffusion-Based Stochastic Regeneration Model for Speech Enhancement and Dereverberation</a></li>
-            <li><a href=" https://github.com/seongq/flowmse">FlowMSE: Flow matching based speech enhancement</a></li>
-            <li><a href=" https://github.com/seongq/cascadingtwoflowmatching">CTFSE: Speech enhancement based on cascaded two flows</a></li>
-            <li><a href=" https://github.com/Honee-W/FlowSE">FlowSE-DiT: Efficient and High-Quality Speech Enhancement via Flow Matching</a></li>
+            <ul>
+                <li><a href="https://github.com/sp-uhh/sgmse">SGMSE+: Speech Enhancement and Dereverberation With Diffusion-Based Generative Models</a></li>
+                <li><a href="https://github.com/sp-uhh/storm">StoRM: A Diffusion-Based Stochastic Regeneration Model for Speech Enhancement and Dereverberation</a></li>
+                <li><a href="https://github.com/seongq/flowmse">FlowMSE: Flow matching based speech enhancement</a></li>
+                <li><a href="https://github.com/seongq/cascadingtwoflowmatching">CTFSE: Speech enhancement based on cascaded two flows</a></li>
+                <li><a href="https://github.com/Honee-W/FlowSE">FlowSE-DiT: Efficient and High-Quality Speech Enhancement via Flow Matching</a></li>
+            </ul>
         </div>
-    </br>
+    <br>
         <h4> Configurations of Evaluated Models </h4>
         <table class="table table-hover" style="width: 80%; margin-bottom: 30px;">
             <thead>
@@ -44,7 +50,7 @@
                     <th>Method</th>
                     <th>Loss Type</th>
                     <th>NFE</th>
-                    <th>Para.(M)</th>
+                    <th>Parameters (M)</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +63,10 @@
                     <td>FlowSE-UNet</td> <td>CFM</td> <td><strong>2</strong></td> <td><strong>24.60</strong></td> 
                 </tr>
                 <tr> 
-                    <td>MP-FlowSE_v1</td> <td>CFM+Phase+Wav</td> <td><u>3<u></td> <td><u>25.90</u></td> 
+                    <td>MP-FlowSE_v1</td> <td>CFM+Phase+Wav</td> <td><u>3</u></td> <td><u>25.90</u></td>
                 </tr>
                 <tr> 
-                    <td>MP-FlowSE_v2</td> <td>CFM+Phase+Metric</td> <td><u>3<u></td> <td><u>25.90</u></td> 
+                    <td>MP-FlowSE_v2</td> <td>CFM+Phase+Metric</td> <td><u>3</u></td> <td><u>25.90</u></td>
                 </tr>
             </tbody>
         </table>
@@ -70,7 +76,7 @@
         <table class="table ">
             <thead>
                 <tr>
-                    <th>Model\id(noise)</th>
+                    <th>Model / ID (noise)</th>
                     <th>p257_008(cafe)</th>
                     <th>p257_033(living)</th>
                     <th>p257_106(bus)</th>
@@ -151,11 +157,11 @@
                 </tr>
             </tbody>
         </table>
-        <!-- <div style="font-size: medium;" class="color_fade"> Note: the audio samples of the original NyTT paper are not publicly available.</div> -->
         <h4>Spectrogram of samples (p257_008)</h4>
-        <img src="img/p257_008.png" class="container">
-    </br>    
-        <div class="row"> &nbsp; </div> <br/>
+        <img src="img/p257_008.png" class="container" alt="Spectrogram comparison for sample p257_008">
+    <br>
+        <div class="row"> &nbsp; </div> <br>
 
     </div>
 </body>
+</html>
